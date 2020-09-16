@@ -11,9 +11,9 @@ using SalesTransaction.Application.WebApi.Areas.Base;
 
 namespace SalesTransaction.Application.WebApi.Areas.Account
 {
-    [Route("api/[controller]")]
+    /*[Route("api/[controller]")]
     [ApiController]
-
+*/
     public class AccountController : BaseController
     {
         private IAccountService _accountService;
@@ -24,7 +24,7 @@ namespace SalesTransaction.Application.WebApi.Areas.Account
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] Login login)
+        public IActionResult Login([FromBody] MvLogin login)
         {
             try
             {
