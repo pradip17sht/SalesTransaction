@@ -35,9 +35,6 @@ namespace SalesTransaction.Application.Service.Account
             using (var con = _da.GetConnection())
             {
                 var cmd = con.CreateCommand();
-                //cmd.CommandType = CommandType.StoredProcedure;
-                //cmd.CommandText = "SpUserSel";
-                //cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = login;
                 
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT (SELECT u.userName,u.password FROM dbo.[User] AS u WHERE u.UserName = '" + login.UserName + "' AND u.Password='" + login.Password
@@ -69,10 +66,6 @@ namespace SalesTransaction.Application.Service.Account
             using (var con = _da.GetConnection())
             {
                 var cmd = con.CreateCommand();
-                //cmd.CommandType = CommandType.StoredProcedure;
-                //cmd.CommandText = "SpUserSel";
-                //cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = login;
-
                 cmd.CommandType = CommandType.Text;
                 dynamic jsonNew = JsonConvert.DeserializeObject(json);
                 cmd.CommandText = "SELECT (SELECT p.personId,p.firstName,p.lastName FROM dbo.Person AS p WHERE p.PersonId = " + Convert.ToString(jsonNew.personId)
