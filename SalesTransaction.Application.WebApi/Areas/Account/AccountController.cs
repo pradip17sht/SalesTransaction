@@ -35,8 +35,7 @@ namespace SalesTransaction.Application.WebApi.Areas.Account
                 throw e;
             }
         }
-
-        // PUT api/<AccountController>/5
+      
         [HttpGet]
         public IActionResult UserDetail (string json)
         {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using SalesTransaction.Application.DataAccess.Account;
+using SalesTransaction.Application.DataAccess;
 using SalesTransaction.Application.Model;
 using SalesTransaction.Application.Service.Account;
 using System;
