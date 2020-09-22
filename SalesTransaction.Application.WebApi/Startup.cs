@@ -29,12 +29,14 @@ namespace SalesTransaction.Application.WebApi
             {
                 options.AddPolicy(name: "AllowOrigin",
                     builder =>
-                    {
-                        builder.WithOrigins("http://localhost:5200", "http://localhost:65144", "https://localhost:44379",
-                            "http://localhost:5500")
-                                .WithMethods("{POST}", "GET");
+                    
+                        builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+                                
                     });
-            });
+            
 
             services.AddControllers();
 
