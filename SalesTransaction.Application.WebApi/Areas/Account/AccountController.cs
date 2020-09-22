@@ -30,9 +30,9 @@ namespace SalesTransaction.Application.WebApi.Areas.Account
             {
                 dynamic jsonString = _accountService.GetLogin(login);
                 return Ok(jsonString);
-            }catch(Exception e)
+            }catch(Exception ex)
             {
-                throw e;
+                throw ex;
             }
         }
       
@@ -43,10 +43,11 @@ namespace SalesTransaction.Application.WebApi.Areas.Account
             {
                 dynamic jsonString = _accountService.GetUserDetail(json);
                 return Ok(jsonString);
+                //return Ok(_accountService.GetUserDetail(json));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
         }
 

@@ -58,9 +58,9 @@ namespace SalesTransaction.Application.Service.Account
                         {
                             return null;
                         }
-                    }catch (Exception e)
+                    }catch (Exception ex)
                     {
-                        throw e;
+                        throw ex;
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace SalesTransaction.Application.Service.Account
                 cmd.CommandType = CommandType.StoredProcedure;
                 dynamic jsonNew = JsonConvert.DeserializeObject(json);
                 cmd.CommandText = "SpUserDetailSel";
-                cmd.Parameters.AddWithValue("@PersonId", Convert.ToString(jsonNew.personId));
+                cmd.Parameters.AddWithValue("@UserId", Convert.ToString(jsonNew.userId));
                 cmd.CommandTimeout = _commandTimeout;
 
                 /*cmd.CommandType = CommandType.Text;
@@ -96,9 +96,9 @@ namespace SalesTransaction.Application.Service.Account
                             return null;
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        throw e;
+                        throw ex;
                     }
                 }
             }
