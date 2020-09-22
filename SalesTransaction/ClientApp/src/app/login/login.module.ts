@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 const routes: Routes = [
     {
@@ -25,7 +25,7 @@ const routes: Routes = [
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSnackBarModule,
+        MatSnackBarModule
     ],
     declarations: [
         LoginComponent
@@ -34,7 +34,13 @@ const routes: Routes = [
         LoginService
     ],
     exports: [
-        LoginComponent
+        LoginComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule
     ]
 })
 export class LoginModule {

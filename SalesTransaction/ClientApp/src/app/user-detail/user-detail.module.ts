@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDetailService } from './user-detail.service';
 import { RouterModule, Routes } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
     {
@@ -15,6 +17,8 @@ const routes: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
+        MatTableModule,
+        MatButtonModule
     ],
     declarations: [
         UserDetailComponent

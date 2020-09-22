@@ -2,7 +2,7 @@ import { LoginService } from './login.service';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MvLogin } from './login.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
