@@ -1,5 +1,7 @@
 export interface MvUserDetail {
-    personId: number;
+    userId: number;
+    userName: string;
+    password: string;
     firstName: string;
     middleName: string;
     lastName: string;

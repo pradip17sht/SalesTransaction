@@ -11,7 +11,7 @@ export class LoginService {
 
   getLogin(json: any): Observable<any> {
 
-    return this.api.post('Account/Login', json);
+    return this.api.post('account/login', json);
   }
 
 }

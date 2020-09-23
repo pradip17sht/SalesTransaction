@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace SalesTransaction.Application.Model
 {
@@ -10,10 +9,9 @@ namespace SalesTransaction.Application.Model
     {
     }
     public class MvLogin { 
-        public int UserID { get; set; }
-        [DisplayName("UserName")]
+        [Required]
         public string UserName { get; set; }
-        [DisplayName("Password")]
+        [Required]
         public string Password { get; set; }
 
     }

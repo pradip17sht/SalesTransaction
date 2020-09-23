@@ -1,4 +1,5 @@
 import { UserDetailComponent } from './user-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDetailService } from './user-detail.service';
@@ -18,7 +19,8 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         MatTableModule,
-        MatButtonModule
+        MatButtonModule,
+        HttpClientModule
     ],
     declarations: [
         UserDetailComponent

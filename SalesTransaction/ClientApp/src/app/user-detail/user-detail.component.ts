@@ -10,55 +10,43 @@ import { UserDetailService } from './user-detail.service';
 })
 export class UserDetailComponent implements OnInit {
 
+  userMessage: string = null;
   displayedColumns: string[];
   dataSource: MvUserDetail[] = [];
-  userMsg = '';
 
-  constructor(private http: HttpClient, private uds: UserDetailService) { }
+  constructor(
+    private userDetailService: UserDetailService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
-    this.displayedColumns = ['personId', 'firstName', 'middleName', 'lastName'];
+    this.displayedColumns = ['userId', 'userName', 'password', 'firstName', 'middleName', 'lastName'];
     this.getUserDetail();
   }
 
   getUserDetail() {
 
-    this.userMsg = '';
-    const headers = new HttpHeaders();
-    headers.set('Content-Type', 'application/json');
-    headers.set('Access-Control-Allow-Origin', '*');
-    headers.set('Access-Control-Allow-Methods', 'GET, POST');
-    headers.set('Access-Control-Allow-Headers', 'Origin, Content-Type');
-
-    this.http.get('http://localhost:44379/api/Account/UserDetail', {
-      headers: headers,
-      params: { json: JSON.stringify({ personId: 15599209 }) }
-    }).subscribe((result: any) => {
-
-      if (result) {
-
-        this.dataSource = [result];
+    // tslint:disable-next-line: radix
+    const userId = parseInt(localStorage.getItem('userId'));
+    this.userDetailService.getUser(userId).subscribe((data: any) => {
+      if (data) {
+        this.dataSource = [data];
+        console.log(Response);
       } else {
-
         this.dataSource = [];
-        this.userMsg = 'No data!';
+        console.log('no data');
       }
-    }, error => console.error(error));
+    });
+
   }
 
   getAllUsers() {
+    this.userDetailService.getAllUserDetail().subscribe((data: any) => {
 
-    this.userMsg = '';
-    this.uds.getAllUserDetail().subscribe((result: any) => {
-
-      if (result && result.data) {
-
-        this.dataSource = result.data;
+      if (data && data.data) {
+        this.dataSource = data.data;
       } else {
-
         this.dataSource = [];
-        this.userMsg = 'No data!';
+        this.userMessage = 'No data found !';
       }
     });
   }
