@@ -1,0 +1,54 @@
+<h1>Customer Details</h1>
+
+<div>
+  <button mat-raised-button (click)="addCustomer()" color="primary"> Add Customer</button>
+  <button mat-raised-button (click)="editCustomer()" color="warn" class="ml-3">Edit Customer</button>
+<br>
+<br>
+  <h4>Available Customers</h4>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="customerId">
+      <mat-header-cell *matHeaderCellDef> Customer Id </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.customerId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.firstName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="middleName">
+      <mat-header-cell *matHeaderCellDef> Middle Name </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.middleName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.lastName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerAddress">
+      <mat-header-cell *matHeaderCellDef> Customer Address </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.customerAddress}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="emailId">
+      <mat-header-cell *matHeaderCellDef> EmailId </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.emailId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNo">
+      <mat-header-cell *matHeaderCellDef> PhoneNo </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.phoneNo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="district">
+      <mat-header-cell *matHeaderCellDef> District </mat-header-cell>
+      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.district}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <span *ngIf="userMessage != ''" style="color: red;font-size: medium;font-weight: bold;"> {{userMessage}}</span>
+
