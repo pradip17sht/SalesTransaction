@@ -7,6 +7,7 @@ namespace SalesTransaction.Application.Model.Product
 {
     class MvProduct
     {
+        public int ProductId { get; set; }
         [Required]
         public string ProductName { get; set; }
         [Required]
@@ -15,9 +16,6 @@ namespace SalesTransaction.Application.Model.Product
         public int Price { get; set; }
         [Required]
         public int Rate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        [Required]
         public int InsertPersonId { get; set; }
     }
 }
