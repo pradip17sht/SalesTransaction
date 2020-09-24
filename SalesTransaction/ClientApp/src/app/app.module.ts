@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { ProductComponent } from './product/product.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,18 +15,25 @@ const appRoutes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
+  {
+    path: 'user-detail',
+    loadChildren: () => import('./user-detail/user-detail.module').then(m => m.UserDetailModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
+  }
   // {
-  //   path: 'user-detail',
-  //   loadChildren: () => import('./user-detail/user-detail.module').then(m => m.UserDetailModule)
+  //   path: 'customer',
+  //   loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   // }
 ];
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    ProductComponent
+    HomeComponent
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,4 +52,7 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
+
+
