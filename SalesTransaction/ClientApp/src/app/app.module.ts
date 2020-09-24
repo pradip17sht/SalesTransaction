@@ -22,11 +22,11 @@ const appRoutes: Routes = [
   {
     path: 'product',
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
+  },
+  {
+    path: 'customer',
+    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   }
-  // {
-  //   path: 'customer',
-  //   loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
-  // }
 ];
 
 @NgModule({
