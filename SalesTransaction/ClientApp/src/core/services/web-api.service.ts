@@ -1,36 +1,37 @@
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
+
 export class WebApiService {
+    apiUrl = environment.apiUrl;
 
-  apiUrl = environment.apiUrl;
+    constructor(private httpClient: HttpClient) {
 
-  constructor(private http: HttpClient) {
-  }
+    }
 
-  post(url: string, body: any): Observable<any> {
+    post(url: string, body: any): Observable<any> {
+        return this.httpClient.post(this.apiUrl + url, body, { headers: this.getHeaderOptions() });
+    }
 
-    return this.http.post(this.apiUrl + url, body, { headers: this.getHeaderOptions() });
-  }
 
-  get(url: string, params?: any): Observable<any> {
+    get(url: string, params?: any): Observable<any> {
+        return this.httpClient.get(this.apiUrl + url, { headers: this.getHeaderOptions(), params: { json: params } });
+    }
 
-    return this.http.get(this.apiUrl + url, { headers: this.getHeaderOptions(), params: params });
-  }
 
-  getHeaderOptions(): HttpHeaders {
+    getHeaderOptions(): HttpHeaders {
+        const headers = new HttpHeaders();
+        headers.set('Content-Type', 'application/json');
+        headers.set('Access-Control-Allow-Origin', '*');
+        headers.set('Access-Control-Allow-Methods', 'GET, POST');
+        headers.set('Access-Control-Allow-Headers', 'Origin, Content-Type');
 
-    const headers = new HttpHeaders();
-    headers.set('Content-Type', 'application/json');
-    headers.set('Access-Control-Allow-Origin', '*');
-    headers.set('Access-Control-Allow-Methods', 'GET, POST');
-    headers.set('Access-Control-Allow-Headers', 'Origin, Content-Type');
+        return headers;
 
-    return headers;
-  }
+    }
 }
