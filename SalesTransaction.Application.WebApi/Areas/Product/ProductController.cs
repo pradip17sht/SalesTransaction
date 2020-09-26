@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SalesTransaction.Application.Model.Product;
 using SalesTransaction.Application.Service.Product;
 using SalesTransaction.Application.WebApi.Areas.Base;
 
@@ -24,6 +25,23 @@ namespace SalesTransaction.Application.WebAPI.Areas.Product
             {
                 dynamic jsonString = _productService.GetAllProductDetail();
                 return Ok(jsonString);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public IActionResult AddProduct([FromBody] MvProduct product)
+        {
+            try
+            {
+                var added = _productService.AddProduct(product);
+                if (!added)
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
             catch (Exception ex)
             {
