@@ -50,5 +50,24 @@ namespace SalesTransaction.Application.WebApi.Areas.Customer
                 throw ex;
             }
         }
+
+        [HttpPost]
+        public IActionResult EditCustomer([FromBody] MvEditCustomer customer)
+        {
+            try
+            {
+                var edited = _customerService.EditCustomer(customer);
+                if (!edited)
+                {
+                    return BadRequest();
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
