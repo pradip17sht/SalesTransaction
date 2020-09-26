@@ -27,22 +27,22 @@ namespace SalesTransaction.Application.Model.Customer
 
     public class MvEditCustomer
     {
-        public int CustomerId { get; set; }
+        public int customerId { get; set; }
         [Required]
-        public string FirstName { get; set; }
+        public string firstName { get; set; }
         [Required]
-        public string MiddleName { get; set; }
+        public string middleName { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public string lastName { get; set; }
         [Required]
-        public string CustomerAddress { get; set; }
+        public string customerAddress { get; set; }
         [Required]
-        public string EmailId { get; set; }
+        public string emailId { get; set; }
         [Required]
-        public int PhoneNo { get; set; }
+        public int phoneNo { get; set; }
         [Required]
-        public string District { get; set; }
-        public int InsertPersonId { get; set; }
+        public string district { get; set; }
+        public int insertPersonId { get; set; }
     }
 }
 
