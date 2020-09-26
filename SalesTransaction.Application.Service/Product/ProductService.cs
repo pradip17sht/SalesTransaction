@@ -104,8 +104,6 @@ namespace SalesTransaction.Application.Service.Product
                     return true;
                 }
                 return false;
-
-
             }
         }
     }
