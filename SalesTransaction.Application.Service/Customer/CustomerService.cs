@@ -59,7 +59,6 @@ namespace SalesTransaction.Application.Service.Customer
                     }
                 }
 
-
             }
         }
 
@@ -82,14 +81,28 @@ namespace SalesTransaction.Application.Service.Customer
                 }
                 return false;
 
-
-
             }
         }
 
     public bool EditCustomer(MvEditCustomer customer)
         {
-            throw new NotImplementedException();
+            using (var con = _dah.GetConnection())
+            {
+                var jsonNew = JsonConvert.SerializeObject(customer);
+                var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SpCustomerAddressUpdTsk_Json";
+                cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
+                cmd.CommandTimeout = _commandTimeout;
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }
