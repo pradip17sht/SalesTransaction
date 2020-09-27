@@ -20,8 +20,6 @@ namespace SalesTransaction.Application.Model.Customer
         public string emailId { get; set; }
         [Required]
         public int phoneNo { get; set; }
-        [Required]
-        public string district { get; set; }
         public int insertPersonId { get; set; }
     }
 
@@ -40,8 +38,6 @@ namespace SalesTransaction.Application.Model.Customer
         public string emailId { get; set; }
         [Required]
         public int phoneNo { get; set; }
-        [Required]
-        public string district { get; set; }
         public int insertPersonId { get; set; }
     }
 }
