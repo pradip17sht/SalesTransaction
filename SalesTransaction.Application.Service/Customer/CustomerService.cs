@@ -69,7 +69,7 @@ namespace SalesTransaction.Application.Service.Customer
                 var jsonNew = JsonConvert.SerializeObject(customer);
                 var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SpCustomerAddressTsk_Json";
+                cmd.CommandText = "SpCustomerIns_Json";
                 cmd.Parameters.Add("@Json", SqlDbType.NVarChar).Value = jsonNew;
                 cmd.CommandTimeout = _commandTimeout;
 
@@ -91,7 +91,7 @@ namespace SalesTransaction.Application.Service.Customer
                 var jsonNew = JsonConvert.SerializeObject(customer);
                 var cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SpCustomerAddressUpdTsk_Json";
+                cmd.CommandText = "SpCustomerUpd_Json";
                 cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
                 cmd.CommandTimeout = _commandTimeout;
 
