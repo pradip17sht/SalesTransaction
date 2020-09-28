@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SalesTransaction.Application.DataAccess;
 using SalesTransaction.Application.Model.SalesTransaction;
 using System;
@@ -32,30 +33,62 @@ namespace SalesTransaction.Application.Service.SalesTransaction
 
         public bool AddSalesTransaction(MvSalesTransaction salesTransaction)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool EditSalesTransaction(MvEditSalesTransaction salesTransaction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public dynamic GetAllSalesTransactionDetail()
-        {
             using (var connection = _dah.GetConnection())
             {
+                var jsonNew = JsonConvert.SerializeObject(salesTransaction);
                 var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SpAllSalesTransactionSel";
+                command.CommandText = "SpSalesTransactionIns_Json";
+                command.Parameters.Add("@json", SqlDbType.NVarChar).Value = jsonNew;
                 command.CommandTimeout = _commandTimeout;
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                int rows = command.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    return true;
+                }
+                return false;
+
+            }
+        }
+        public bool EditSalesTransaction(MvEditSalesTransaction salesTransaction)
+        {
+            using (var con = _dah.GetConnection())
+            {
+                var jsonNew = JsonConvert.SerializeObject(salesTransaction);
+                var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SpSalesTransactionUpd_Json";
+                cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
+                cmd.CommandTimeout = _commandTimeout;
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        
+        public dynamic GetAllSalesTransactionDetail()
+        {
+            using (var con = _dah.GetConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SpAllSalesTransactionSel";
+                cmd.CommandTimeout = _commandTimeout;
+
+                using (SqlDataReader sqlrdr = cmd.ExecuteReader())
                 {
                     try
                     {
-                        if (reader.HasRows)
+                        if ((sqlrdr.HasRows))
                         {
-                            return _dah.GetJson(reader);
+                            return _dah.GetJson(sqlrdr);
                         }
                         else
                         {
