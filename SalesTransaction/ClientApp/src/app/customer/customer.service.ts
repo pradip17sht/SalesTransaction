@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { WebApiService } from 'src/core/services/web-api.service';
 
 
@@ -14,6 +15,14 @@ export class CustomerService {
 
     getAllCustomerDetail() {
         return this.api.get('customer/allcustomerdetail');
+    }
+
+    addCustomer(json): Observable<any> {
+        return this.api.post('customer/addcustomer', json);
+    }
+
+    editCustomer(json): Observable<any> {
+        return this.api.post('customer/editcustomer', json);
     }
 
 }

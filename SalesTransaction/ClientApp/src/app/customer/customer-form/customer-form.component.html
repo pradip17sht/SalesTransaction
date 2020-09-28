@@ -1,0 +1,48 @@
+<div class="form-container">
+  <mat-toolbar color="primary">{{action}} Customer</mat-toolbar>
+
+  <form class="customer-form" [formGroup]="customerForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" [(ngModel)]="selectedCustomer.firstName" required>
+      <mat-error *ngIf="customerForm.controls['firstName'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="middleName" [(ngModel)]="selectedCustomer.middleName" required>
+      <mat-error *ngIf="customerForm.controls['middleName'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" [(ngModel)]="selectedCustomer.lastName" required>
+      <mat-error *ngIf="customerForm.controls['lastName'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Address</mat-label>
+      <input matInput formControlName="customerAddress" [(ngModel)]="selectedCustomer.customerAddress" required>
+      <mat-error *ngIf="customerForm.controls['customerAddress'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>EmailId</mat-label>
+      <input matInput formControlName="emailId" [(ngModel)]="selectedCustomer.emailId" required>
+      <mat-error *ngIf="customerForm.controls['emailId'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>PhoneNo</mat-label>
+      <input matInput formControlName="phoneNo" [(ngModel)]="selectedCustomer.phoneNo" required>
+      <mat-error *ngIf="customerForm.controls['phoneNo'].errors?.required">Invalid form value</mat-error>
+    </mat-form-field>
+    
+    </form>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="customerForm.invalid">Save</button>
+    <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+  </div>
+</div>

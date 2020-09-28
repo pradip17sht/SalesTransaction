@@ -1,9 +1,19 @@
 export interface MvCustomer {
+    customerId: number;
     firstName: string;
     middleName: string;
     lastName: string;
     customerAddress: string;
     emailId: string;
     phoneNo: number;
-    district: string;
+}
+
+export interface MvEditCustomer {
+    customerId: number;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    customerAddress: string;
+    emailId: string;
+    phoneNo: number;
 }

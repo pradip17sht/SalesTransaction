@@ -42,13 +42,11 @@
       <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.phoneNo}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="district">
-      <mat-header-cell *matHeaderCellDef> District </mat-header-cell>
-      <mat-cell *matCellDef="let CustomerDetail"> {{CustomerDetail.district}} </mat-cell>
-    </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow($event, row)"
+      [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+      (mouseout)="row.hovered = false">
+    </mat-row>
   </mat-table>
   <span *ngIf="userMessage != ''" style="color: red;font-size: medium;font-weight: bold;"> {{userMessage}}</span>
-
+</div>
