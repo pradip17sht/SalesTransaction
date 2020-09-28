@@ -1,3 +1,66 @@
-<p>
-  sales-transaction works!
-</p>
+<button mat-raised-button (click)='addSalesTransaction()' style="margin-right: 5px;">Add SalesTransaction</button>
+<button mat-raised-button (click)='editSalesTransaction()'  style="margin-right: 5px;">Edit SalesTransaction</button>
+<button mat-raised-button (click)='generateInvoice()'>Generate Invoice</button>
+<br>
+<br>
+
+
+<table mat-table [dataSource]='dataSource' class="mat-elevation-z8" width="100%">
+   
+    <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selectionCheckBox.hasValue() && isAllSelected()"
+                    [indeterminate]="selectionCheckBox.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+    <th mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selectionCheckBox.toggle(row) : null"
+                    [checked]="selectionCheckBox.isSelected(row)">
+      </mat-checkbox>
+    </th>
+  </ng-container>
+
+    <ng-container matColumnDef="salesTransactionId">
+        <th mat-header-cell *matHeaderCellDef> Sales Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.salesTransactionId}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef> Product </th>
+        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef> Customer </th>
+        <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef> Rate </th>
+        <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="invoiceId">
+        <th mat-header-cell *matHeaderCellDef> Invoice Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.invoiceId}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr (click)='onRowClicked(row)' mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+
+</table>
+<span *ngIf="userMsg" style="color: red;font-size: medium;font-weight: bold;">No Records!</span>
