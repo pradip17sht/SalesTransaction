@@ -33,43 +33,44 @@ namespace SalesTransaction.Application.Service.SalesTransaction
 
         public bool AddSalesTransaction(MvSalesTransaction salesTransaction)
         {
-            using (var connection = _dah.GetConnection())
+            var jsonNew = JsonConvert.SerializeObject(salesTransaction);
+            using (var con = _dah.GetConnection())
             {
-                var jsonNew = JsonConvert.SerializeObject(salesTransaction);
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SpSalesTransactionIns_Json";
-                command.Parameters.Add("@json", SqlDbType.NVarChar).Value = jsonNew;
-                command.CommandTimeout = _commandTimeout;
-
-                int rows = command.ExecuteNonQuery();
-
-                if (rows > 0)
+                using (var cmd = new SqlCommand("SpSalesTransactionIns_Json", con))
                 {
-                    return true;
-                }
-                return false;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@json", SqlDbType.NVarChar).Value = jsonNew;
+                    cmd.CommandTimeout = _commandTimeout;
 
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
         }
         public bool EditSalesTransaction(MvEditSalesTransaction salesTransaction)
         {
+            var jsonNew = JsonConvert.SerializeObject(salesTransaction);
             using (var con = _dah.GetConnection())
             {
-                var jsonNew = JsonConvert.SerializeObject(salesTransaction);
-                var cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SpSalesTransactionUpd_Json";
-                cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
-                cmd.CommandTimeout = _commandTimeout;
-
-                int rows = cmd.ExecuteNonQuery();
-
-                if (rows > 0)
+                using (var cmd = new SqlCommand("SpSalesTransactionUpd_Json", con))
                 {
-                    return true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
+                    cmd.CommandTimeout = _commandTimeout;
+
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows > 0)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
             }
         }
         
@@ -77,30 +78,29 @@ namespace SalesTransaction.Application.Service.SalesTransaction
         {
             using (var con = _dah.GetConnection())
             {
-                var cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SpAllSalesTransactionSel";
-                cmd.CommandTimeout = _commandTimeout;
-
-                using (SqlDataReader sqlrdr = cmd.ExecuteReader())
+                using (var cmd = new SqlCommand("SpAllSalesTransactionSel", con))
                 {
-                    try
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = _commandTimeout;
+                    using (var sqlrdr = cmd.ExecuteReader())
                     {
-                        if ((sqlrdr.HasRows))
+                        try
                         {
-                            return _dah.GetJson(sqlrdr);
-                        }
-                        else
-                        {
+                            if (sqlrdr.HasRows)
+                            {
+                                return _dah.GetJson(sqlrdr);
+                            }
                             return null;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
+                        catch (Exception ex)
+                        {
+
+                            throw ex;
+                        }
                     }
                 }
             }
+                
         }
     }
 }

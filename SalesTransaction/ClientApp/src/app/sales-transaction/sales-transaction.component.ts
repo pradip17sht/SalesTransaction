@@ -17,7 +17,7 @@ export class SalesTransactionComponent implements OnInit {
   userMsg: string = null;
   displayedColumns: string[];
   dataSource: MvSalesTransaction[] = [];
-  selectedSale: MvSalesTransaction = {} as MvSalesTransaction;
+  selectedSalesTransaction: MvSalesTransaction = {} as MvSalesTransaction;
   selection = new SelectionModel<MvSalesTransaction>(false, []);
   selectionCheckBox = new SelectionModel<MvSalesTransaction>(true, []);
 
@@ -47,7 +47,7 @@ export class SalesTransactionComponent implements OnInit {
 
   addSalesTransaction(): void {
     this.selection.clear();
-    this.selectedSale = {} as MvSalesTransaction;
+    this.selectedSalesTransaction = {} as MvSalesTransaction;
     this.openDialog('Add');
   }
   editSalesTransaction(): void {
@@ -56,13 +56,13 @@ export class SalesTransactionComponent implements OnInit {
 
   openDialog(action: string): void {
     if (action === 'Edit' && !this.selection.hasValue()) {
-      this.us.openSnackBar('Select a sale before editing', 'warning');
+      this.us.openSnackBar('Select a saletransaction before editing', 'warning');
       return;
     }
     const dialogRef = this.dialog.open(SalesTransactionFormComponent, {
      data: {
        action,
-       data: this.selectedSale
+       data: this.selectedSalesTransaction
      }
 
     });
@@ -85,7 +85,7 @@ export class SalesTransactionComponent implements OnInit {
   }
 
   onRowClicked(row: any): void {
-    this.selectedSale = { ...row };
+    this.selectedSalesTransaction = { ...row };
     this.selection.toggle(row);
     this.selectionCheckBox.toggle(row);
   }

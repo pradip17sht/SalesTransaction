@@ -12,31 +12,34 @@ namespace SalesTransaction.Application.Service.Invoice
 {
     public class InvoiceService : IInvoiceService
     {
+        private DataAccessHelper _dah; 
         private readonly IConfiguration _configuration;
-        private readonly string _connStr;
-        private readonly string _commandTimeout;
-        private DataAccessHelper _dah;
+        private readonly string _connectionString;
+        //private readonly string _commandTimeout;
+        private readonly int _commandTimeout;
 
         public InvoiceService(IConfiguration configuration)
         {
-            _configuration = configuration.GetSection("ConnectionStrings");
-            _connStr = _configuration["DefaultConnection"];
-            if (!string.IsNullOrEmpty(_connStr))
+            _configuration = configuration;
+            dynamic connectionString = _configuration.GetSection("ConnectionString");
+            _connectionString = connectionString["DefaultConnection"];
+            if (_connectionString != null)
             {
-                _dah = new DataAccessHelper(_connStr);
+                _dah = new DataAccessHelper(_connectionString);
             }
 
-            _commandTimeout = _configuration["CommandTimeOut"];
+            _commandTimeout = Convert.ToInt32(connectionString["CommandTimeout"]);
         }
+
 
         public dynamic GetAllInvoice()
         {
-            using (var conn = _dah.GetConnection())
+            using (var con = _dah.GetConnection())
             {
-                using (var cmd = new SqlCommand("SpAllInvoiceSel", conn))
+                using (var cmd = new SqlCommand("SpAllInvoiceSel", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = int.Parse(_commandTimeout);
+                    cmd.CommandTimeout = _commandTimeout;
                     using (var reader = cmd.ExecuteReader())
                     {
                         try
@@ -61,13 +64,13 @@ namespace SalesTransaction.Application.Service.Invoice
         public bool GenerateInvoice(IEnumerable<MvGenerateInvoice> salesTransaction)
         {
             var jsonNew = JsonConvert.SerializeObject(salesTransaction);
-            using (var conn = _dah.GetConnection())
+            using (var con = _dah.GetConnection())
             {
-                using (var cmd = new SqlCommand("SpAltInvoiceSalesTransactionTsk", conn))
+                using (var cmd = new SqlCommand("SpAltInvoiceSalesTransactionTsk", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
-                    cmd.CommandTimeout = int.Parse(_commandTimeout);
+                    cmd.CommandTimeout = _commandTimeout;
                     int rows = cmd.ExecuteNonQuery();
                     if (rows > 0)
                     {
@@ -83,13 +86,13 @@ namespace SalesTransaction.Application.Service.Invoice
         public dynamic GetInvoiceDetail(MvInvoice invoice)
         {
             var jsonNew = JsonConvert.SerializeObject(invoice);
-            using (var conn = _dah.GetConnection())
+            using (var con = _dah.GetConnection())
             {
-                using (var cmd = new SqlCommand("SpInvoiceDetailSel", conn))
+                using (var cmd = new SqlCommand("SpInvoiceDetailSel", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Json", SqlDbType.NChar).Value = jsonNew;
-                    cmd.CommandTimeout = int.Parse(_commandTimeout);
+                    cmd.CommandTimeout = _commandTimeout;
                     using (var reader = cmd.ExecuteReader())
                     {
                         try
@@ -109,7 +112,6 @@ namespace SalesTransaction.Application.Service.Invoice
                 }
             }
         }
-
 
     }
 }

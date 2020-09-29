@@ -8,7 +8,7 @@ namespace SalesTransaction.Application.Service.Invoice
     public interface IInvoiceService
     {
         dynamic GetAllInvoice();
-        bool GenerateInvoice(IEnumerable<MvGenerateInvoice> sales);
+        bool GenerateInvoice(IEnumerable<MvGenerateInvoice> salesTransaction);
         dynamic GetInvoiceDetail(MvInvoice invoice);
     }
 }

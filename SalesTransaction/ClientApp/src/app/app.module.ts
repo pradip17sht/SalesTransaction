@@ -31,6 +31,10 @@ const appRoutes: Routes = [
     path: 'sales-transaction',
     loadChildren: () => import('./sales-transaction/sales-transaction.module').then(m => m.SalesTransactionModule)
   },
+  {
+    path: 'invoice',
+    loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
+  },
 ];
 
 @NgModule({

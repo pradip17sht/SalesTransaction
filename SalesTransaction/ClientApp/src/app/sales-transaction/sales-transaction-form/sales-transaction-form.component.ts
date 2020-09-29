@@ -19,7 +19,7 @@ export class SalesTransactionFormComponent implements OnInit {
   customers = [];
   products = [];
   action: string;
-  saleTransaction: MvSalesTransaction = {} as MvSalesTransaction;
+  salesTransaction: MvSalesTransaction = {} as MvSalesTransaction;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,15 +29,15 @@ export class SalesTransactionFormComponent implements OnInit {
     private cs: CustomerService,
   ) {
     this.action = data.action;
-    this.saleTransaction = data.data || {};
+    this.salesTransaction = data.data || {};
     dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
     this.salesTransactionForm = this.fb.group({
-      customerId: [this.saleTransaction.customerId, Validators.required],
-      productId: [this.saleTransaction.productId, Validators.required],
-      quantity: [this.saleTransaction.quantity, Validators.required],
+      customerId: [this.salesTransaction.customerId, Validators.required],
+      productId: [this.salesTransaction.productId, Validators.required],
+      quantity: [this.salesTransaction.quantity, Validators.required],
     });
     this.fetchCustomers();
     this.fetchProducts();
@@ -79,10 +79,10 @@ export class SalesTransactionFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.saleTransaction.customerId = this.salesTransactionForm.get('customerId').value;
-    this.saleTransaction.productId = this.salesTransactionForm.get('productId').value;
-    this.saleTransaction.quantity = this.salesTransactionForm.get('quantity').value;
-    this.dialogRef.close(this.saleTransaction);
+    this.salesTransaction.customerId = this.salesTransactionForm.get('customerId').value;
+    this.salesTransaction.productId = this.salesTransactionForm.get('productId').value;
+    this.salesTransaction.quantity = this.salesTransactionForm.get('quantity').value;
+    this.dialogRef.close(this.salesTransaction);
   }
 
 }
