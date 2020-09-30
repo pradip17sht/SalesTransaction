@@ -27,10 +27,10 @@ namespace SalesTransaction.Application.WebApi.Areas.Invoice
                 var jsonString = _invoiceService.GetAllInvoice();
                 return Ok(jsonString);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -53,10 +53,10 @@ namespace SalesTransaction.Application.WebApi.Areas.Invoice
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -72,10 +72,10 @@ namespace SalesTransaction.Application.WebApi.Areas.Invoice
                 var jsonString = _invoiceService.GetInvoiceDetail(invoice);
                 return Ok(jsonString);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }
