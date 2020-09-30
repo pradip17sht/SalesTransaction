@@ -5,6 +5,7 @@ export interface MvInvoice {
     discount: number;
     customerName: string;
     customerId: number;
+    invoiceNumber: string;
     transactionCount: number;
 }
 

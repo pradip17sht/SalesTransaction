@@ -18,6 +18,7 @@ export class InvoiceComponent implements OnInit {
   selectedInvoice: MvInvoice = {} as MvInvoice;
   selection = new SelectionModel<MvInvoice>(false, []);
   invoiceDetail: MvInvoiceDetail[] = [];
+  selectionCheckBox = new SelectionModel<MvInvoice>(true, []);
 
   constructor(
     private is: InvoiceService,
@@ -26,7 +27,7 @@ export class InvoiceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.displayedColumns = ['invoiceId', 'discount', 'customerName', 'transactionCount', 'subtotal', 'total'];
+    this.displayedColumns = ['invoiceId', 'invoiceNumber', 'discount', 'customerName', 'transactionCount', 'subtotal', 'total'];
     this.getAllInvoice();
   }
 
@@ -45,6 +46,7 @@ export class InvoiceComponent implements OnInit {
   onRowClicked(row: any): void {
     this.selectedInvoice = { ...row };
     this.selection.toggle(row);
+    this.selectionCheckBox.toggle(row);
   }
 
   getInvoiceDetail(): void {

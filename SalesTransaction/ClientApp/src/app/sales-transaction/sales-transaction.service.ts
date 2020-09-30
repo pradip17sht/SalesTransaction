@@ -21,7 +21,6 @@ export class SalesTransactionService {
     return this.api.post('salestransaction/addsalestransaction', json);
   }
   editSalesTransaction(json): Observable<any> {
-    return this.api.post('salestransaction/updatesalestransaction', json);
+    return this.api.post('salestransaction/editsalestransaction', json);
   }
-
 }

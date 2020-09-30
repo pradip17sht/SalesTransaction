@@ -56,7 +56,7 @@ export class SalesTransactionComponent implements OnInit {
 
   openDialog(action: string): void {
     if (action === 'Edit' && !this.selection.hasValue()) {
-      this.us.openSnackBar('Select a saletransaction before editing', 'warning');
+      this.us.openSnackBar('Select a salestransaction before editing', 'warning');
       return;
     }
     const dialogRef = this.dialog.open(SalesTransactionFormComponent, {
@@ -67,17 +67,17 @@ export class SalesTransactionComponent implements OnInit {
 
     });
 
-    dialogRef.afterClosed().subscribe(saleTransaction => {
-      if (saleTransaction) {
+    dialogRef.afterClosed().subscribe(salesTransaction => {
+      if (salesTransaction) {
         if (action === 'Edit') {
-          this.ss.editSalesTransaction(saleTransaction).subscribe(res => {
+          this.ss.editSalesTransaction(salesTransaction).subscribe(res => {
             this.getAllSalesTransactionDetail();
-            this.us.openSnackBar('SaleTransaction Updated', 'success');
+            this.us.openSnackBar('SalesTransaction Updated', 'success');
           });
         } else {
-          this.ss.addSalesTransaction(saleTransaction).subscribe(res => {
+          this.ss.addSalesTransaction(salesTransaction).subscribe(res => {
             this.getAllSalesTransactionDetail();
-            this.us.openSnackBar('SaleTransaction Added', 'success');
+            this.us.openSnackBar('SalesTransaction Added', 'success');
           }, err => console.log(err));
         }
       }
